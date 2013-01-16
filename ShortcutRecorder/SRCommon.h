@@ -112,7 +112,7 @@ enum {
 
 // Macros for glyps
 #define SRInt(x) @(x)
-#define SRChar(x) [NSString stringWithFormat: @"%d", x]
+#define SRChar(x) [NSString stringWithFormat: @"%C", (UInt16)x]
 
 // Some default values
 #define ShortcutRecorderEmptyFlags 0

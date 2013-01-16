@@ -50,10 +50,10 @@ NSString * SRStringForKeyCode( NSInteger keyCode )
 NSString * SRStringForCarbonModifierFlags( NSUInteger flags )
 {
     NSString *modifierFlagsString = [NSString stringWithFormat:@"%@%@%@%@", 
-		( flags & controlKey ? [NSString stringWithFormat:@"%C", (UInt16)KeyboardControlGlyph] : @"" ),
-		( flags & optionKey ? [NSString stringWithFormat:@"%C", (UInt16)KeyboardOptionGlyph] : @"" ),
-		( flags & shiftKey ? [NSString stringWithFormat:@"%C", (UInt16)KeyboardShiftGlyph] : @"" ),
-		( flags & cmdKey ? [NSString stringWithFormat:@"%C", (UInt16)KeyboardCommandGlyph] : @"" )];
+		( flags & controlKey ? SRChar(KeyboardControlGlyph) : @"" ),
+		( flags & optionKey ? SRChar(KeyboardOptionGlyph) : @"" ),
+		( flags & shiftKey ? SRChar(KeyboardShiftGlyph) : @"" ),
+		( flags & cmdKey ? SRChar(KeyboardCommandGlyph) : @"" )];
 	return modifierFlagsString;
 }
 
@@ -73,10 +73,10 @@ NSString * SRStringForCarbonModifierFlagsAndKeyCode( NSUInteger flags, NSInteger
 NSString * SRStringForCocoaModifierFlags( NSUInteger flags )
 {
     NSString *modifierFlagsString = [NSString stringWithFormat:@"%@%@%@%@", 
-		( flags & NSControlKeyMask ? [NSString stringWithFormat:@"%C", (UInt16)KeyboardControlGlyph] : @"" ),
-		( flags & NSAlternateKeyMask ? [NSString stringWithFormat:@"%C", (UInt16)KeyboardOptionGlyph] : @"" ),
-		( flags & NSShiftKeyMask ? [NSString stringWithFormat:@"%C", (UInt16)KeyboardShiftGlyph] : @"" ),
-		( flags & NSCommandKeyMask ? [NSString stringWithFormat:@"%C", (UInt16)KeyboardCommandGlyph] : @"" )];
+		( flags & NSControlKeyMask ? SRChar(KeyboardControlGlyph) : @"" ),
+		( flags & NSAlternateKeyMask ? SRChar(KeyboardOptionGlyph) : @"" ),
+		( flags & NSShiftKeyMask ? SRChar(KeyboardShiftGlyph) : @"" ),
+		( flags & NSCommandKeyMask ? SRChar(KeyboardCommandGlyph) : @"" )];
 	
 	return modifierFlagsString;
 }
@@ -245,7 +245,7 @@ CGFloat SRAnimationEaseInOut(CGFloat t) {
 						defaultButton:[error localizedRecoveryOptions][0U]
 					  alternateButton:nil
 						  otherButton:nil
-			informativeTextWithFormat:@"%@", (reason ? reason : @"")];
+			informativeTextWithFormat:(reason ? reason : @""), nil];
 }
 
 @end
