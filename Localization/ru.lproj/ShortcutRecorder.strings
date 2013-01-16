@@ -1,0 +1,13 @@
+﻿"Space" = "Пробел";
+"Use old shortcut" = "Использовать предыдущее сочетание клавиш";
+"Type shortcut" = "Введите сочетание клавиш";
+"Click to record shortcut" = "Нажмите, чтобы ввести сочетание клавиш";
+"Pad %@" = "Pad %@";
+"The key combination %@ can't be used!" = "Сочетание клавиш «%@» не может быть использовано!";
+"The key combination \"%@\" can't be used because %@." = "Сочетание клавиш «%@» не может быть использовано, потому что %@.";
+"The key combination \"%@\" can't be used because it's already used by a system-wide keyboard shortcut. (If you really want to use this key combination, most shortcuts can be changed in the Keyboard & Mouse panel in System Preferences.)" = "Сочетание клавиш «%@» не может быть использовано, потому что его использует другое приложение. Если вы действительно хотите использовать это сочетание клавиш, вы можете изменить его в «Системные настройки→Клавиатура→Сочетания клавиш».";
+"The key combination \"%@\" can't be used because it's already used by the menu item \"%@\"." = "Сочетание клавиш «%@» не может быть использовано, потому что оно уже используется командой меню «%@».";
+"Command-" = "Command-";
+"Option-" = "Option-";
+"Shift-" = "Shift-";
+"Control-" = "Control-";
