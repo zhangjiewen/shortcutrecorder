@@ -8,13 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		A57BD5CF16A6B71700CA2CDF /* ShortcutRecorder.strings in Resources */ = {isa = PBXBuildFile; fileRef = A57BD5B616A6B71700CA2CDF /* ShortcutRecorder.strings */; };
-		A57BD5D116A6B80600CA2CDF /* SRRemoveShortcut.tif in Resources */ = {isa = PBXBuildFile; fileRef = 0B5E281809C1D6C500444687 /* SRRemoveShortcut.tif */; };
-		A57BD5D216A6B80600CA2CDF /* SRRemoveShortcutPressed.tif in Resources */ = {isa = PBXBuildFile; fileRef = 0B5E281A09C1D6C500444687 /* SRRemoveShortcutPressed.tif */; };
-		A57BD5D316A6B80600CA2CDF /* SRRemoveShortcutRollover.tif in Resources */ = {isa = PBXBuildFile; fileRef = 0B5E281C09C1D6C500444687 /* SRRemoveShortcutRollover.tif */; };
-		A57BD5D416A6B80600CA2CDF /* SRSnapback.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0B6DAA3C09C329AB0022655F /* SRSnapback.tiff */; };
 		A57BD5D516A6B83000CA2CDF /* PTHotKey.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5B49B9316A6A88A004F9895 /* PTHotKey.framework */; };
 		A57BD5D616A6B83000CA2CDF /* ShortcutRecorder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5B49BB516A6AB07004F9895 /* ShortcutRecorder.framework */; };
 		A57BD5D716A6B9E200CA2CDF /* PTHotKey.m in Sources */ = {isa = PBXBuildFile; fileRef = A5B49B8716A6A868004F9895 /* PTHotKey.m */; };
+		A57BD60716A6C7AD00CA2CDF /* SRSnapback.png in Resources */ = {isa = PBXBuildFile; fileRef = A57BD5E916A6C4EB00CA2CDF /* SRSnapback.png */; };
+		A57BD60816A6C7AD00CA2CDF /* SRSnapback@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A57BD5EA16A6C4EB00CA2CDF /* SRSnapback@2x.png */; };
+		A57BD60916A6C7AD00CA2CDF /* SRRemoveShortcut.png in Resources */ = {isa = PBXBuildFile; fileRef = A57BD5E116A6C34800CA2CDF /* SRRemoveShortcut.png */; };
+		A57BD60A16A6C7AD00CA2CDF /* SRRemoveShortcut@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A57BD5E216A6C34800CA2CDF /* SRRemoveShortcut@2x.png */; };
+		A57BD60B16A6C7AD00CA2CDF /* SRRemoveShortcutRollover.png in Resources */ = {isa = PBXBuildFile; fileRef = A57BD5E316A6C34800CA2CDF /* SRRemoveShortcutRollover.png */; };
+		A57BD60C16A6C7AD00CA2CDF /* SRRemoveShortcutRollover@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A57BD5E416A6C34800CA2CDF /* SRRemoveShortcutRollover@2x.png */; };
 		A5B49B9516A6A88A004F9895 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5B49B9416A6A88A004F9895 /* Cocoa.framework */; };
 		A5B49BA616A6A8D8004F9895 /* PTHotKey.h in Headers */ = {isa = PBXBuildFile; fileRef = A5B49B8616A6A868004F9895 /* PTHotKey.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A5B49BA816A6A8DA004F9895 /* PTHotKeyCenter.h in Headers */ = {isa = PBXBuildFile; fileRef = A5B49B8816A6A868004F9895 /* PTHotKeyCenter.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -79,10 +81,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0B5E281809C1D6C500444687 /* SRRemoveShortcut.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = SRRemoveShortcut.tif; sourceTree = "<group>"; };
-		0B5E281A09C1D6C500444687 /* SRRemoveShortcutPressed.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = SRRemoveShortcutPressed.tif; sourceTree = "<group>"; };
-		0B5E281C09C1D6C500444687 /* SRRemoveShortcutRollover.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = SRRemoveShortcutRollover.tif; sourceTree = "<group>"; };
-		0B6DAA3C09C329AB0022655F /* SRSnapback.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = SRSnapback.tiff; sourceTree = "<group>"; };
 		A57BD5B716A6B71700CA2CDF /* ca */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/ShortcutRecorder.strings; sourceTree = "<group>"; };
 		A57BD5B816A6B71700CA2CDF /* cs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/ShortcutRecorder.strings; sourceTree = "<group>"; };
 		A57BD5B916A6B71700CA2CDF /* da */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/ShortcutRecorder.strings; sourceTree = "<group>"; };
@@ -107,6 +105,12 @@
 		A57BD5CC16A6B71700CA2CDF /* th */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/ShortcutRecorder.strings; sourceTree = "<group>"; };
 		A57BD5CD16A6B71700CA2CDF /* zh-Hans */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/ShortcutRecorder.strings"; sourceTree = "<group>"; };
 		A57BD5CE16A6B71700CA2CDF /* zh-Hant */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/ShortcutRecorder.strings"; sourceTree = "<group>"; };
+		A57BD5E116A6C34800CA2CDF /* SRRemoveShortcut.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SRRemoveShortcut.png; sourceTree = "<group>"; };
+		A57BD5E216A6C34800CA2CDF /* SRRemoveShortcut@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SRRemoveShortcut@2x.png"; sourceTree = "<group>"; };
+		A57BD5E316A6C34800CA2CDF /* SRRemoveShortcutRollover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SRRemoveShortcutRollover.png; sourceTree = "<group>"; };
+		A57BD5E416A6C34800CA2CDF /* SRRemoveShortcutRollover@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SRRemoveShortcutRollover@2x.png"; sourceTree = "<group>"; };
+		A57BD5E916A6C4EB00CA2CDF /* SRSnapback.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SRSnapback.png; sourceTree = "<group>"; };
+		A57BD5EA16A6C4EB00CA2CDF /* SRSnapback@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SRSnapback@2x.png"; sourceTree = "<group>"; };
 		A5B49B8616A6A868004F9895 /* PTHotKey.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PTHotKey.h; sourceTree = "<group>"; };
 		A5B49B8716A6A868004F9895 /* PTHotKey.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PTHotKey.m; sourceTree = "<group>"; };
 		A5B49B8816A6A868004F9895 /* PTHotKeyCenter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PTHotKeyCenter.h; sourceTree = "<group>"; };
@@ -180,10 +184,12 @@
 		0B5E281709C1D6C500444687 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				0B5E281809C1D6C500444687 /* SRRemoveShortcut.tif */,
-				0B5E281A09C1D6C500444687 /* SRRemoveShortcutPressed.tif */,
-				0B5E281C09C1D6C500444687 /* SRRemoveShortcutRollover.tif */,
-				0B6DAA3C09C329AB0022655F /* SRSnapback.tiff */,
+				A57BD5E916A6C4EB00CA2CDF /* SRSnapback.png */,
+				A57BD5EA16A6C4EB00CA2CDF /* SRSnapback@2x.png */,
+				A57BD5E116A6C34800CA2CDF /* SRRemoveShortcut.png */,
+				A57BD5E216A6C34800CA2CDF /* SRRemoveShortcut@2x.png */,
+				A57BD5E316A6C34800CA2CDF /* SRRemoveShortcutRollover.png */,
+				A57BD5E416A6C34800CA2CDF /* SRRemoveShortcutRollover@2x.png */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -358,7 +364,6 @@
 				A5B49B8E16A6A88A004F9895 /* Sources */,
 				A5B49B8F16A6A88A004F9895 /* Frameworks */,
 				A5B49B9016A6A88A004F9895 /* Headers */,
-				A5B49B9116A6A88A004F9895 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -463,22 +468,17 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		A5B49B9116A6A88A004F9895 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		A5B49BB316A6AB07004F9895 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				A57BD5CF16A6B71700CA2CDF /* ShortcutRecorder.strings in Resources */,
-				A57BD5D116A6B80600CA2CDF /* SRRemoveShortcut.tif in Resources */,
-				A57BD5D216A6B80600CA2CDF /* SRRemoveShortcutPressed.tif in Resources */,
-				A57BD5D316A6B80600CA2CDF /* SRRemoveShortcutRollover.tif in Resources */,
-				A57BD5D416A6B80600CA2CDF /* SRSnapback.tiff in Resources */,
+				A57BD60716A6C7AD00CA2CDF /* SRSnapback.png in Resources */,
+				A57BD60816A6C7AD00CA2CDF /* SRSnapback@2x.png in Resources */,
+				A57BD60916A6C7AD00CA2CDF /* SRRemoveShortcut.png in Resources */,
+				A57BD60A16A6C7AD00CA2CDF /* SRRemoveShortcut@2x.png in Resources */,
+				A57BD60B16A6C7AD00CA2CDF /* SRRemoveShortcutRollover.png in Resources */,
+				A57BD60C16A6C7AD00CA2CDF /* SRRemoveShortcutRollover@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

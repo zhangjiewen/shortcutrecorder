@@ -267,56 +267,27 @@ static NSMutableDictionary *SRSharedImageCache = nil;
 
 @implementation SRSharedImageProvider
 + (NSImage *)supportingImageWithName:(NSString *)name {
-//	NSLog(@"supportingImageWithName: %@", name);
+
 	if (nil == SRSharedImageCache) {
 		SRSharedImageCache = [NSMutableDictionary dictionary];
-//		NSLog(@"inited cache");
 	}
 	NSImage *cachedImage = nil;
 	if (nil != (cachedImage = SRSharedImageCache[name])) {
-//		NSLog(@"returned cached image: %@", cachedImage);
 		return cachedImage;
 	}
 	
-//	NSLog(@"constructing image");
-	NSSize size;
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-	NSValue *sizeValue = [self performSelector:NSSelectorFromString([NSString stringWithFormat:@"_size%@", name])];
-#pragma clang diagnostic pop
-	size = [sizeValue sizeValue];
-//	NSLog(@"size: %@", NSStringFromSize(size));
+	NSImage *returnImage = nil;
+	NSBundle *b = [NSBundle bundleWithIdentifier:@"com.igrsoft.ShortcutRecorder"];
 	
-	NSCustomImageRep *customImageRep = [[NSCustomImageRep alloc] initWithDrawSelector:NSSelectorFromString([NSString stringWithFormat:@"_draw%@:", name]) delegate:self];
-	[customImageRep setSize:size];
-//	NSLog(@"created customImageRep: %@", customImageRep);
-	NSImage *returnImage = [[NSImage alloc] initWithSize:size];
-	[returnImage addRepresentation:customImageRep];
-	[returnImage setScalesWhenResized:YES];
-	SRSharedImageCache[name] = returnImage;
+    if (floor(NSAppKitVersionNumber) <= NSAppKitVersionNumber10_6)
+        returnImage = [[NSImage alloc] initByReferencingURL:[b URLForImageResource:name]];
+    else
+        returnImage = [b imageForResource:name];
 	
-#ifdef SRCommonWriteDebugImagery
-	
-	NSData *tiff = [returnImage TIFFRepresentation];
-	[tiff writeToURL:[NSURL fileURLWithPath:[[NSString stringWithFormat:@"~/Desktop/m_%@.tiff", name] stringByExpandingTildeInPath]] atomically:YES];
+	if (returnImage) {
+		SRSharedImageCache[name] = returnImage;
+	}
 
-	NSSize sizeQDRPL = NSMakeSize(size.width*4.0,size.height*4.0);
-	
-//	sizeQDRPL = NSMakeSize(70.0,70.0);
-	NSCustomImageRep *customImageRepQDRPL = [[NSCustomImageRep alloc] initWithDrawSelector:NSSelectorFromString([NSString stringWithFormat:@"_draw%@:", name]) delegate:self];
-	[customImageRepQDRPL setSize:sizeQDRPL];
-//	NSLog(@"created customImageRepQDRPL: %@", customImageRepQDRPL);
-	NSImage *returnImageQDRPL = [[NSImage alloc] initWithSize:sizeQDRPL];
-	[returnImageQDRPL addRepresentation:customImageRepQDRPL];
-	[customImageRepQDRPL release];
-	[returnImageQDRPL setScalesWhenResized:YES];
-	[returnImageQDRPL setFlipped:YES];
-	NSData *tiffQDRPL = [returnImageQDRPL TIFFRepresentation];
-	[tiffQDRPL writeToURL:[NSURL fileURLWithPath:[[NSString stringWithFormat:@"~/Desktop/m_QDRPL_%@.tiff", name] stringByExpandingTildeInPath]] atomically:YES];
-	
-#endif
-	
-//	NSLog(@"returned image: %@", returnImage);
 	return returnImage;
 }
 @end
