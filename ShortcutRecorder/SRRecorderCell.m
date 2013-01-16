@@ -923,6 +923,16 @@
 	return escapeKeysRecord;
 }
 
+- (void)setAllowsKeyOnly:(BOOL)nAllowsKeyOnly
+{
+	allowsKeyOnly = nAllowsKeyOnly;
+}
+
+- (void)setEscapeKeysRecord:(BOOL)nEscapeKeysRecord
+{
+	escapeKeysRecord = nEscapeKeysRecord;
+}
+
 - (void)setAllowsKeyOnly:(BOOL)nAllowsKeyOnly escapeKeysRecord:(BOOL)nEscapeKeysRecord {
 	allowsKeyOnly = nAllowsKeyOnly;
 	escapeKeysRecord = nEscapeKeysRecord;

@@ -200,12 +200,22 @@
 	return [SRCell allowsKeyOnly];
 }
 
+- (void)setAllowsKeyOnly:(BOOL)nAllowsKeyOnly
+{
+	[SRCell setAllowsKeyOnly: nAllowsKeyOnly];
+}
+
 - (void)setAllowsKeyOnly:(BOOL)nAllowsKeyOnly escapeKeysRecord:(BOOL)nEscapeKeysRecord {
 	[SRCell setAllowsKeyOnly:nAllowsKeyOnly escapeKeysRecord:nEscapeKeysRecord];
 }
 
 - (BOOL)escapeKeysRecord {
 	return [SRCell escapeKeysRecord];
+}
+
+- (void)setEscapeKeysRecord:(BOOL)nEscapeKeysRecord
+{
+	[SRCell setEscapeKeysRecord: nEscapeKeysRecord];
 }
 
 - (BOOL)canCaptureGlobalHotKeys
