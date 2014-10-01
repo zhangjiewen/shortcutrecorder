@@ -169,22 +169,30 @@ NSString *SRCharacterForKeyCodeAndCocoaFlags(NSInteger keyCode, NSUInteger cocoa
 	// Fall back to string based on key code:
 #define	FailWithNaiveString SRStringForKeyCode(keyCode)
 	
-	UInt32              deadKeyState;
+	UInt32   deadKeyState;
     OSStatus err = noErr;
     CFLocaleRef locale = CFLocaleCopyCurrent();
-	//(__bridge id)CFMakeCollectable(locale); // Autorelease here so that it gets released no matter what
 	
 	TISInputSourceRef tisSource = TISCopyCurrentKeyboardInputSource();
     if(!tisSource)
+    {
+        CFRelease(locale);
 		return FailWithNaiveString;
+    }
 	
 	CFDataRef layoutData = (CFDataRef)TISGetInputSourceProperty(tisSource, kTISPropertyUnicodeKeyLayoutData);
     if (!layoutData)
-		return FailWithNaiveString;
+    {
+        CFRelease(locale);
+        return FailWithNaiveString;
+    }
 	
 	const UCKeyboardLayout *keyLayout = (const UCKeyboardLayout *)CFDataGetBytePtr(layoutData);
     if (!keyLayout)
-		return FailWithNaiveString;
+    {
+        CFRelease(locale);
+        return FailWithNaiveString;
+    }
 	
 	EventModifiers modifiers = 0;
 	if (cocoaFlags & NSAlternateKeyMask)	modifiers |= optionKey;
@@ -193,7 +201,10 @@ NSString *SRCharacterForKeyCodeAndCocoaFlags(NSInteger keyCode, NSUInteger cocoa
 	UniChar unicodeString[4];
 	err = UCKeyTranslate( keyLayout, (UInt16)keyCode, kUCKeyActionDisplay, modifiers, LMGetKbdType(), kUCKeyTranslateNoDeadKeysBit, &deadKeyState, maxStringLength, &actualStringLength, unicodeString );
 	if(err != noErr)
-		return FailWithNaiveString;
+    {
+        CFRelease(locale);
+        return FailWithNaiveString;
+    }
 
 	CFStringRef temp = CFStringCreateWithCharacters(kCFAllocatorDefault, unicodeString, 1);
 	CFMutableStringRef mutableTemp = CFStringCreateMutableCopy(kCFAllocatorDefault, 0, temp);
@@ -204,7 +215,8 @@ NSString *SRCharacterForKeyCodeAndCocoaFlags(NSInteger keyCode, NSUInteger cocoa
 
 	if (temp) CFRelease(temp);
 	if (mutableTemp) CFRelease(mutableTemp);
-
+    if (locale) CFRelease(locale);
+    
 	PUDNSLog(@"character: -%@-", (NSString *)resultString);
 
 	return resultString;
