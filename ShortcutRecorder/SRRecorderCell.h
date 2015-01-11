@@ -27,10 +27,14 @@
 #define SRAnimationOffsetRect(X,Y)	(SRAnimationAxisIsY ? NSOffsetRect(X,0.0f,-NSHeight(Y)) : NSOffsetRect(X,NSWidth(Y),0.0f))
 
 @class SRRecorderControl, SRValidator;
+@protocol SRRecorderCellDelegate;
 
-enum SRRecorderStyle {
+enum SRRecorderStyle
+{
     SRGradientBorderStyle = 0,
-    SRGreyStyle = 1
+    SRGreyStyle = 1,
+	SRGreyStyleAnimated = 2
+	
 };
 typedef enum SRRecorderStyle SRRecorderStyle;
 
@@ -70,7 +74,6 @@ typedef enum SRRecorderStyle SRRecorderStyle;
 	
     SRValidator         *validator;
     
-	IBOutlet id         delegate;
 	BOOL				globalHotKeys;
 	void				*hotKeyModeToken;
 }
@@ -81,59 +84,51 @@ typedef enum SRRecorderStyle SRRecorderStyle;
 
 + (BOOL)styleSupportsAnimation:(SRRecorderStyle)style;
 
-- (BOOL)animates;
-- (void)setAnimates:(BOOL)an;
-- (SRRecorderStyle)style;
-- (void)setStyle:(SRRecorderStyle)nStyle;
+@property (nonatomic) BOOL animates;
+@property (nonatomic) SRRecorderStyle style;
 
 #pragma mark *** Delegate ***
 
-- (id)delegate;
-- (void)setDelegate:(id)aDelegate;
+@property (nonatomic, weak) IBOutlet id<SRRecorderCellDelegate> delegate;
 
 #pragma mark *** Responder Control ***
 
-- (BOOL)becomeFirstResponder;
-- (BOOL)resignFirstResponder;
+@property (nonatomic, readonly) BOOL becomeFirstResponder;
+@property (nonatomic, readonly) BOOL resignFirstResponder;
 
 #pragma mark *** Key Combination Control ***
 
 - (BOOL)performKeyEquivalent:(NSEvent *)theEvent;
 - (void)flagsChanged:(NSEvent *)theEvent;
 
-- (NSUInteger)allowedFlags;
-- (void)setAllowedFlags:(NSUInteger)flags;
+@property (nonatomic) NSUInteger allowedFlags;
 
-- (NSUInteger)requiredFlags;
-- (void)setRequiredFlags:(NSUInteger)flags;
+@property (nonatomic) NSUInteger requiredFlags;
 
-- (BOOL)allowsKeyOnly;
-- (void)setAllowsKeyOnly:(BOOL)nAllowsKeyOnly;
+@property (nonatomic) BOOL allowsKeyOnly;
 - (void)setAllowsKeyOnly:(BOOL)nAllowsKeyOnly escapeKeysRecord:(BOOL)nEscapeKeysRecord;
-- (BOOL)escapeKeysRecord;
-- (void)setEscapeKeysRecord:(BOOL)nEscapeKeysRecord;
+@property (nonatomic) BOOL escapeKeysRecord;
 
-- (BOOL)canCaptureGlobalHotKeys;
-- (void)setCanCaptureGlobalHotKeys:(BOOL)inState;
+@property (nonatomic) BOOL canCaptureGlobalHotKeys;
 
-- (KeyCombo)keyCombo;
-- (void)setKeyCombo:(KeyCombo)aKeyCombo;
+@property (nonatomic) KeyCombo keyCombo;
 
 #pragma mark *** Autosave Control ***
 
-- (NSString *)autosaveName;
-- (void)setAutosaveName:(NSString *)aName;
+@property (nonatomic, copy) NSString *autosaveName;
 
 // Returns the displayed key combination if set
-- (NSString *)keyComboString;
+@property (nonatomic, readonly, copy) NSString *keyComboString;
 
-- (NSString *)keyChars;
-- (NSString *)keyCharsIgnoringModifiers;
+@property (nonatomic, readonly, copy) NSString *keyChars;
+@property (nonatomic, readonly, copy) NSString *keyCharsIgnoringModifiers;
 
 @end
 
 // Delegate Methods
-@interface NSObject (SRRecorderCellDelegate)
+@protocol SRRecorderCellDelegate <NSObject>
+
 - (BOOL)shortcutRecorderCell:(SRRecorderCell *)aRecorderCell isKeyCode:(NSInteger)keyCode andFlagsTaken:(NSUInteger)flags reason:(NSString **)aReason;
 - (void)shortcutRecorderCell:(SRRecorderCell *)aRecorderCell keyComboDidChange:(KeyCombo)newCombo;
+
 @end

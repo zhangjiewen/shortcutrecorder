@@ -20,7 +20,7 @@
 //---------------------------------------------------------- 
 // iinitWithDelegate:
 //---------------------------------------------------------- 
-- (id) initWithDelegate:(id)theDelegate;
+- (instancetype)initWithDelegate:(id)theDelegate;
 {
     self = [super init];
     if ( !self )
@@ -34,13 +34,13 @@
 //---------------------------------------------------------- 
 // isKeyCode:andFlagsTaken:error:
 //---------------------------------------------------------- 
-- (BOOL) isKeyCode:(NSInteger)keyCode andFlagsTaken:(NSUInteger)flags error:(NSError **)error;
+- (BOOL)isKeyCode:(NSInteger)keyCode andFlagsTaken:(NSUInteger)flags error:(NSError **)error;
 {
     // if we have a delegate, it goes first...
-	if ( delegate )
+	if ( _delegate )
 	{
 		NSString *delegateReason = nil;
-		if ( [delegate shortcutValidator:self 
+		if ( [_delegate shortcutValidator:self
                                isKeyCode:keyCode 
                            andFlagsTaken:SRCarbonToCocoaFlags( flags )
                                   reason:&delegateReason])
@@ -59,6 +59,7 @@
 										  NSLocalizedRecoveryOptionsErrorKey: @[@"OK"]};
                 *error = [NSError errorWithDomain:NSCocoaErrorDomain code:0 userInfo:userInfo];
             }
+			
 			return YES;
 		}
 	}
@@ -220,33 +221,5 @@
 
 #pragma mark -
 #pragma mark accessors
-
-//---------------------------------------------------------- 
-//  delegate 
-//---------------------------------------------------------- 
-- (id) delegate
-{
-    return delegate; 
-}
-
-- (void) setDelegate: (id) theDelegate
-{
-    delegate = theDelegate; // Standard delegate pattern does not retain the delegate
-}
-
-@end
-
-#pragma mark -
-#pragma mark default delegate implementation
-
-@implementation NSObject( SRValidation )
-
-//---------------------------------------------------------- 
-// shortcutValidator:isKeyCode:andFlagsTaken:reason:
-//---------------------------------------------------------- 
-- (BOOL) shortcutValidator:(SRValidator *)validator isKeyCode:(NSInteger)keyCode andFlagsTaken:(NSUInteger)flags reason:(NSString **)aReason;
-{
-    return NO;
-}
 
 @end

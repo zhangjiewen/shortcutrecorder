@@ -308,11 +308,13 @@ static NSMutableDictionary *SRSharedImageCache = nil;
 
 #define MakeRelativePoint(x,y)	NSMakePoint(x*hScale, y*vScale)
 
-+ (NSValue *)_sizeSRSnapback {
++ (NSValue *)_sizeSRSnapback
+{
 	return [NSValue valueWithSize:NSMakeSize(14.0f,14.0f)];
 }
-+ (void)_drawSRSnapback:(id)anNSCustomImageRep {
-	
+
++ (void)_drawSRSnapback:(id)anNSCustomImageRep
+{
 //	NSLog(@"drawSRSnapback using: %@", anNSCustomImageRep);
 	
 	NSCustomImageRep *rep = anNSCustomImageRep;
@@ -349,7 +351,8 @@ static NSMutableDictionary *SRSharedImageCache = nil;
 	[bp fill];
 }
 
-+ (NSValue *)_sizeSRRemoveShortcut {
++ (NSValue *)_sizeSRRemoveShortcut
+{
 	return [NSValue valueWithSize:NSMakeSize(14.0f,14.0f)];
 }
 + (NSValue *)_sizeSRRemoveShortcutRollover { return [self _sizeSRRemoveShortcut]; }
@@ -396,4 +399,5 @@ static NSMutableDictionary *SRSharedImageCache = nil;
 	
 	[self _drawARemoveShortcutBoxUsingRep:anNSCustomImageRep opacity:0.55f];
 }
+
 @end

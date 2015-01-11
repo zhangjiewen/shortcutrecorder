@@ -11,14 +11,21 @@
 #import "PTHotKeyCenter.h"
 #import "PTKeyCombo.h"
 
+@interface PTHotKey ()
+
+@property (nonatomic, strong, readwrite) id identifier;
+@property (nonatomic, strong, readwrite) PTKeyCombo *keyCombo;
+
+@end
+
 @implementation PTHotKey
 
-- (id)init
+- (instancetype)init
 {
 	return [self initWithIdentifier: nil keyCombo: nil];
 }
 
-- (id)initWithIdentifier: (id)identifier keyCombo: (PTKeyCombo*)combo
+- (instancetype)initWithIdentifier: (id)identifier keyCombo: (PTKeyCombo*)combo
 {
 	self = [super init];
 	
@@ -31,13 +38,6 @@
 	return self;
 }
 
-- (void)dealloc
-{
-	mIdentifier = nil;
-	mName = nil;
-	mKeyCombo = nil;
-}
-
 - (NSString*)description
 {
 	return [NSString stringWithFormat: @"<%@: %@, %@>", NSStringFromClass( [self class] ), [self identifier], [self keyCombo]];
@@ -45,87 +45,27 @@
 
 #pragma mark -
 
-- (void)setIdentifier: (id)ident
-{
-	mIdentifier = ident;
-}
-
-- (id)identifier
-{
-	return mIdentifier;
-}
-
 - (void)setKeyCombo: (PTKeyCombo*)combo
 {
 	if( combo == nil )
 		combo = [PTKeyCombo clearKeyCombo];
 	
-	mKeyCombo = combo;
-}
-
-- (PTKeyCombo*)keyCombo
-{
-	return mKeyCombo;
-}
-
-- (void)setName: (NSString*)name
-{
-	mName = name;
-}
-
-- (NSString*)name
-{
-	return mName;
-}
-
-- (void)setTarget: (id)target
-{
-	mTarget = target;
-}
-
-- (id)target
-{
-	return mTarget;
-}
-
-- (void)setAction: (SEL)action
-{
-	mAction = action;
-}
-
-- (SEL)action
-{
-	return mAction;
-}
-
-- (UInt32)carbonHotKeyID
-{
-	return mCarbonHotKeyID;
-}
-
-- (void)setCarbonHotKeyID: (UInt32)hotKeyID;
-{
-	mCarbonHotKeyID = hotKeyID;
-}
-
-- (EventHotKeyRef)carbonEventHotKeyRef
-{
-	return mCarbonEventHotKeyRef;
-}
-
-- (void)setCarbonEventHotKeyRef: (EventHotKeyRef)hotKeyRef
-{
-	mCarbonEventHotKeyRef = hotKeyRef;
+	_keyCombo = combo;
 }
 
 #pragma mark -
 
 - (void)invoke
 {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-	[mTarget performSelector: mAction withObject: self];
-#pragma clang diagnostic pop
+	NSMethodSignature *signature  = [_target methodSignatureForSelector:_action];
+	NSInvocation      *invocation = [NSInvocation invocationWithMethodSignature:signature];
+	
+	__weak PTHotKey *weakSelf = self;
+	[invocation setTarget:_target];
+	[invocation setSelector:_action];
+	[invocation setArgument:&weakSelf atIndex:2];
+	
+	[invocation invoke];
 }
 
 @end

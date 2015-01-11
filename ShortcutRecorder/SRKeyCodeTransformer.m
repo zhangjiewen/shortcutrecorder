@@ -37,13 +37,14 @@ static NSArray              *padKeysArray        = nil;
         return;
     
     // Some keys need a special glyph
-	keyCodeToStringDict = @{@122: @"F1",
+	keyCodeToStringDict = @{
+		@122: @"F1",
 		@120: @"F2",
-		@99: @"F3",
+		@99:  @"F3",
 		@118: @"F4",
-		@96: @"F5",
-		@97: @"F6",
-		@98: @"F7",
+		@96:  @"F5",
+		@97:  @"F6",
+		@98:  @"F7",
 		@100: @"F8",
 		@101: @"F9",
 		@109: @"F10",
@@ -53,25 +54,25 @@ static NSArray              *padKeysArray        = nil;
 		@107: @"F14",
 		@113: @"F15",
 		@106: @"F16",
-		@64: @"F17",
-		@79: @"F18",
-		@80: @"F19",
-		@49: SRLoc(@"Space"),
-		@51: SRChar(KeyboardDeleteLeftGlyph),
+		@64:  @"F17",
+		@79:  @"F18",
+		@80:  @"F19",
+		@49:  SRLoc(@"Space"),
+		@51:  SRChar(KeyboardDeleteLeftGlyph),
 		@117: SRChar(KeyboardDeleteRightGlyph),
-		@71: SRChar(KeyboardPadClearGlyph),
+		@71:  SRChar(KeyboardPadClearGlyph),
 		@123: SRChar(KeyboardLeftArrowGlyph),
 		@124: SRChar(KeyboardRightArrowGlyph),
 		@126: SRChar(KeyboardUpArrowGlyph),
 		@125: SRChar(KeyboardDownArrowGlyph),
 		@119: SRChar(KeyboardSoutheastArrowGlyph),
 		@115: SRChar(KeyboardNorthwestArrowGlyph),
-		@53: SRChar(KeyboardEscapeGlyph),
+		@53:  SRChar(KeyboardEscapeGlyph),
 		@121: SRChar(KeyboardPageDownGlyph),
 		@116: SRChar(KeyboardPageUpGlyph),
-		@36: SRChar(KeyboardReturnR2LGlyph),
-		@76: SRChar(KeyboardReturnGlyph),
-		@48: SRChar(KeyboardTabRightGlyph),
+		@36:  SRChar(KeyboardReturnR2LGlyph),
+		@76:  SRChar(KeyboardReturnGlyph),
+		@48:  SRChar(KeyboardTabRightGlyph),
 		@114: SRChar(KeyboardHelpGlyph)};    
     
     // We want to identify if the key was pressed on the numpad
@@ -96,7 +97,10 @@ static NSArray              *padKeysArray        = nil;
     stringToKeyCodeDict = [[NSMutableDictionary alloc] init];
     [self regenerateStringToKeyCodeMapping];
 
-	[[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(regenerateStringToKeyCodeMapping) name:(NSString*)kTISNotifySelectedKeyboardInputSourceChanged object:nil];
+	[[NSDistributedNotificationCenter defaultCenter] addObserver:self
+														selector:@selector(regenerateStringToKeyCodeMapping)
+															name:(NSString*)kTISNotifySelectedKeyboardInputSourceChanged
+														  object:nil];
 }
 
 //---------------------------------------------------------- 
@@ -119,7 +123,7 @@ static NSArray              *padKeysArray        = nil;
 //---------------------------------------------------------- 
 //  init
 //---------------------------------------------------------- 
-- (id)init
+- (instancetype)init
 {
 	if((self = [super init]))
 	{
@@ -222,8 +226,7 @@ static NSArray              *padKeysArray        = nil;
     [stringToKeyCodeDict removeAllObjects];
     
     // loop over every keycode (0 - 127) finding its current string mapping...
-	NSUInteger i;
-    for ( i = 0U; i < 128U; i++ )
+    for (NSUInteger i = 0; i < 128; ++i )
     {
         NSNumber *keyCode = @(i);
         NSString *string = [transformer transformedValue:keyCode];

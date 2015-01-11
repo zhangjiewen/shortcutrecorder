@@ -14,53 +14,44 @@
 #import <Cocoa/Cocoa.h>
 #import "SRRecorderCell.h"
 
-@interface SRRecorderControl : NSControl
+@protocol SRRecorderDelegate;
+
+@interface SRRecorderControl : NSControl <SRRecorderCellDelegate>
 {
-	IBOutlet id delegate;
 }
 
 #pragma mark *** Aesthetics ***
-- (BOOL)animates;
-- (void)setAnimates:(BOOL)an;
-- (SRRecorderStyle)style;
-- (void)setStyle:(SRRecorderStyle)nStyle;
+@property (nonatomic) BOOL animates;
+@property (nonatomic) SRRecorderStyle style;
 
 #pragma mark *** Delegate ***
-- (id)delegate;
-- (void)setDelegate:(id)aDelegate;
+@property (nonatomic, weak) IBOutlet id<SRRecorderDelegate> delegate;
 
 #pragma mark *** Key Combination Control ***
 
-- (NSUInteger)allowedFlags;
-- (void)setAllowedFlags:(NSUInteger)flags;
+@property (nonatomic) NSUInteger allowedFlags;
 
-- (BOOL)allowsKeyOnly;
-- (void)setAllowsKeyOnly:(BOOL)nAllowsKeyOnly;
+@property (nonatomic) BOOL allowsKeyOnly;
 - (void)setAllowsKeyOnly:(BOOL)nAllowsKeyOnly escapeKeysRecord:(BOOL)nEscapeKeysRecord;
-- (BOOL)escapeKeysRecord;
-- (void)setEscapeKeysRecord:(BOOL)nEscapeKeysRecord;
+@property (nonatomic) BOOL escapeKeysRecord;
 
-- (BOOL)canCaptureGlobalHotKeys;
-- (void)setCanCaptureGlobalHotKeys:(BOOL)inState;
+@property (nonatomic) BOOL canCaptureGlobalHotKeys;
 
-- (NSUInteger)requiredFlags;
-- (void)setRequiredFlags:(NSUInteger)flags;
+@property (nonatomic) NSUInteger requiredFlags;
 
-- (KeyCombo)keyCombo;
-- (void)setKeyCombo:(KeyCombo)aKeyCombo;
+@property (nonatomic) KeyCombo keyCombo;
 
-- (NSString *)keyChars;
-- (NSString *)keyCharsIgnoringModifiers;
+@property (nonatomic, readonly, copy) NSString *keyChars;
+@property (nonatomic, readonly, copy) NSString *keyCharsIgnoringModifiers;
 
 #pragma mark *** Autosave Control ***
 
-- (NSString *)autosaveName;
-- (void)setAutosaveName:(NSString *)aName;
+@property (nonatomic, copy) NSString *autosaveName;
 
 #pragma mark -
 
 // Returns the displayed key combination if set
-- (NSString *)keyComboString;
+@property (nonatomic, readonly, copy) NSString *keyComboString;
 
 #pragma mark *** Conversion Methods ***
 
@@ -69,13 +60,12 @@
 
 #pragma mark *** Binding Methods ***
 
-- (NSDictionary *)objectValue;
-- (void)setObjectValue:(NSDictionary *)shortcut;
-
 @end
 
 // Delegate Methods
-@interface NSObject (SRRecorderDelegate)
+@protocol SRRecorderDelegate <NSObject>
+
 - (BOOL)shortcutRecorder:(SRRecorderControl *)aRecorder isKeyCode:(NSInteger)keyCode andFlagsTaken:(NSUInteger)flags reason:(NSString **)aReason;
 - (void)shortcutRecorder:(SRRecorderControl *)aRecorder keyComboDidChange:(KeyCombo)newKeyCombo;
+
 @end

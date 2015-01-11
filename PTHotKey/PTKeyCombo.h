@@ -10,29 +10,28 @@
 
 @interface PTKeyCombo : NSObject <NSCopying>
 {
-	NSInteger	mKeyCode;
-	NSUInteger	mModifiers;
 }
 
 + (id)clearKeyCombo;
-+ (id)keyComboWithKeyCode: (NSInteger)keyCode modifiers: (NSUInteger)modifiers;
-- (id)initWithKeyCode: (NSInteger)keyCode modifiers: (NSUInteger)modifiers;
++ (instancetype)keyComboWithKeyCode: (NSInteger)keyCode modifiers: (NSUInteger)modifiers;
+- (instancetype)initWithKeyCode: (NSInteger)keyCode modifiers: (NSUInteger)modifiers;
 
-- (id)initWithPlistRepresentation: (id)plist;
-- (id)plistRepresentation;
+- (instancetype)initWithPlistRepresentation: (id)plist;
+@property (nonatomic, readonly, strong) id plistRepresentation;
 
 - (BOOL)isEqual: (PTKeyCombo*)combo;
 
-- (NSInteger)keyCode;
-- (NSUInteger)modifiers;
+@property (nonatomic, readonly) NSInteger keyCode;
+@property (nonatomic, readonly) NSUInteger modifiers;
 
-- (BOOL)isClearCombo;
-- (BOOL)isValidHotKeyCombo;
+@property (nonatomic, getter=isValidHotKeyCombo, readonly) BOOL validHotKeyCombo;
 
 @end
 
 
 @interface PTKeyCombo (UserDisplayAdditions)
-- (NSString*)keyCodeString;
-- (NSUInteger)modifierMask;
+
+@property (nonatomic, readonly, copy) NSString *keyCodeString;
+@property (nonatomic, readonly) NSUInteger modifierMask;
+
 @end
