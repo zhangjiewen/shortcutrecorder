@@ -31,9 +31,9 @@
 	NSUInteger newFlags = 0;
 	
 	if ([allowedModifiersCommandCheckBox state]) newFlags += NSCommandKeyMask;
-	if ([allowedModifiersOptionCheckBox state]) newFlags += NSAlternateKeyMask;
+	if ([allowedModifiersOptionCheckBox state])  newFlags += NSAlternateKeyMask;
 	if ([allowedModifiersControlCheckBox state]) newFlags += NSControlKeyMask;
-	if ([allowedModifiersShiftCheckBox state]) newFlags += NSShiftKeyMask;
+	if ([allowedModifiersShiftCheckBox state])   newFlags += NSShiftKeyMask;
 	
 	[shortcutRecorder setAllowedFlags: newFlags];
 }
@@ -43,9 +43,9 @@
 	NSUInteger newFlags = 0;
 	
 	if ([requiredModifiersCommandCheckBox state]) newFlags += NSCommandKeyMask;
-	if ([requiredModifiersOptionCheckBox state]) newFlags += NSAlternateKeyMask;
+	if ([requiredModifiersOptionCheckBox state])  newFlags += NSAlternateKeyMask;
 	if ([requiredModifiersControlCheckBox state]) newFlags += NSControlKeyMask;
-	if ([requiredModifiersShiftCheckBox state]) newFlags += NSShiftKeyMask;
+	if ([requiredModifiersShiftCheckBox state])   newFlags += NSShiftKeyMask;
 	
 	[shortcutRecorder setRequiredFlags: newFlags];
 }
@@ -71,33 +71,46 @@
 	[[PTHotKeyCenter sharedCenter] registerHotKey: globalHotKey];
 }
 
-- (IBAction)changeAllowsBareKeys:(id)sender {
+- (IBAction)changeAllowsBareKeys:(id)sender
+{
 	BOOL allowsKeyOnly = NO; BOOL escapeKeysRecord = NO;
 	NSInteger allowsTag = [allowsBareKeysPopUp selectedTag];
+	
 	if (allowsTag > 0)
+	{
 		allowsKeyOnly = YES;
+	}
 	if (allowsTag > 1)
+	{
 		escapeKeysRecord = YES;
+	}
+	
 	[shortcutRecorder setAllowsKeyOnly:allowsKeyOnly escapeKeysRecord:escapeKeysRecord];
 	[delegateDisallowRecorder setAllowsKeyOnly:allowsKeyOnly escapeKeysRecord:escapeKeysRecord];
 }
 
-- (IBAction)changeStyle:(id)sender {
-	NSInteger style = [stylePopUp selectedTag];
+- (IBAction)changeStyle:(id)sender
+{
+	SRRecorderStyle style = (SRRecorderStyle)[stylePopUp selectedTag];
 	BOOL animates = NO;
-	if (style == 2) {
-		style = 1;
+	if (style == SRGreyStyleAnimated)
+	{
+		style = SRGreyStyle;
 		animates = YES;
 	}
+	
 	[shortcutRecorder setAnimates:animates];
-	[shortcutRecorder setStyle:(SRRecorderStyle)style];
+	[shortcutRecorder setStyle:style];
 	[delegateDisallowRecorder setAnimates:animates];
-	[delegateDisallowRecorder setStyle:(SRRecorderStyle)style];
+	[delegateDisallowRecorder setStyle:style];
 }
 
 #pragma mark -
 
-- (BOOL)shortcutRecorder:(SRRecorderControl *)aRecorder isKeyCode:(NSInteger)keyCode andFlagsTaken:(NSUInteger)flags reason:(NSString **)aReason
+- (BOOL)shortcutRecorder:(SRRecorderControl *)aRecorder
+			   isKeyCode:(NSInteger)keyCode
+		   andFlagsTaken:(NSUInteger)flags
+				  reason:(NSString **)aReason
 {
 	if (aRecorder == shortcutRecorder)
 	{
@@ -126,7 +139,8 @@
 - (void)hitHotKey:(PTHotKey *)hotKey
 {
 	NSMutableAttributedString *logString = [globalHotKeyLogView textStorage];
-	[[logString mutableString] appendString: [NSString stringWithFormat: @"%@ pressed. \n", [shortcutRecorder keyComboString]]];
+	[[logString mutableString] appendString:
+	 [NSString stringWithFormat: @"%@ pressed. \n", [shortcutRecorder keyComboString]]];
 	
 	[globalHotKeyLogView scrollPoint: NSMakePoint(0, [globalHotKeyLogView frame].size.height)];
 }

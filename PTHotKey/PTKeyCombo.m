@@ -9,6 +9,15 @@
 #import "PTKeyCombo.h"
 #import "PTKeyCodeTranslator.h"
 
+@interface PTKeyCombo ()
+
+@property (nonatomic, readwrite) NSInteger keyCode;
+@property (nonatomic, readwrite) NSUInteger modifiers;
+@property (nonatomic, getter=isClearCombo) BOOL clearCombo;
+
+
+@end
+
 @implementation PTKeyCombo
 
 + (id)clearKeyCombo
@@ -16,18 +25,18 @@
 	return [self keyComboWithKeyCode: -1 modifiers: -1];
 }
 
-+ (id)keyComboWithKeyCode: (NSInteger)keyCode modifiers: (NSUInteger)modifiers
++ (instancetype)keyComboWithKeyCode: (NSInteger)keyCode modifiers: (NSUInteger)modifiers
 {
-	return [[self alloc] initWithKeyCode: keyCode modifiers: modifiers];
+	return [[self alloc] initWithKeyCode:keyCode modifiers:modifiers];
 }
 
-- (id)initWithKeyCode: (NSInteger)keyCode modifiers: (NSUInteger)modifiers
+- (instancetype)initWithKeyCode:(NSInteger)aKeyCode modifiers:(NSUInteger)aModifiers
 {
 	self = [super init];
 
 	if( self )
 	{
-        switch ( keyCode )
+        switch ( aKeyCode )
         {
             case kVK_F1:
             case kVK_F2:
@@ -49,20 +58,20 @@
             case kVK_F18:
             case kVK_F19:
             case kVK_F20:
-                mModifiers = modifiers | NSFunctionKeyMask;
+                _modifiers = aModifiers | NSFunctionKeyMask;
                 break;
             default:
-                mModifiers = modifiers;
+                _modifiers = aModifiers;
                 break;
         }
 
-		mKeyCode = keyCode;
+		_keyCode = aKeyCode;
 	}
 
 	return self;
 }
 
-- (id)initWithPlistRepresentation: (id)plist
+- (instancetype)initWithPlistRepresentation: (id)plist
 {
 	int keyCode, modifiers;
 
@@ -85,8 +94,8 @@
 
 - (id)plistRepresentation
 {
-	return @{@"keyCode": @([self keyCode]),
-				@"modifiers": @([self modifiers])};
+	return @{@"keyCode"  : @([self keyCode]),
+			 @"modifiers": @([self modifiers])};
 }
 
 - (id)copyWithZone:(NSZone*)zone;
@@ -102,24 +111,14 @@
 
 #pragma mark -
 
-- (NSInteger)keyCode
-{
-	return mKeyCode;
-}
-
-- (NSUInteger)modifiers
-{
-	return mModifiers;
-}
-
 - (BOOL)isValidHotKeyCombo
 {
-	return mKeyCode >= 0 && mModifiers > 0;
+	return _keyCode >= 0 && _modifiers > 0;
 }
 
 - (BOOL)isClearCombo
 {
-	return mKeyCode == -1 && mModifiers == 0;
+	return _keyCode == -1 && _modifiers == 0;
 }
 
 @end
@@ -139,12 +138,13 @@
 	};
 
 	NSString* str = [NSString string];
-	long i;
 
-	for( i = 0; i < 4; i++ )
+	for( NSInteger i = 0; i < 4; ++i )
 	{
 		if( modifiers & modToChar[i][0] )
+		{
 			str = [str stringByAppendingString: [NSString stringWithCharacters: &modToChar[i][1] length: 1]];
+		}
 	}
 
 	return str;
@@ -164,7 +164,7 @@
 	return keyCodes;
 }
 
-+ (NSString*)_stringForKeyCode: (short)keyCode legacyKeyCodeMap: (NSDictionary*)dict
++ (NSString*)_stringForKeyCode:(short)keyCode legacyKeyCodeMap:(NSDictionary*)dict
 {
 	id key;
 	NSString* str;

@@ -11,13 +11,16 @@
 #import "PTKeyCombo.h"
 
 @interface PTHotKeyCenter (Private)
+
 - (PTHotKey*)_hotKeyForCarbonHotKey: (EventHotKeyRef)carbonHotKey;
 - (PTHotKey*)_hotKeyForCarbonHotKeyID: (EventHotKeyID)hotKeyID;
 
 - (void)_updateEventHandler;
 - (void)_hotKeyDown: (PTHotKey*)hotKey;
 - (void)_hotKeyUp: (PTHotKey*)hotKey;
+
 static OSStatus hotKeyEventHandler(EventHandlerCallRef inHandlerRef, EventRef inEvent, void* refCon );
+
 @end
 
 @implementation PTHotKeyCenter
@@ -34,7 +37,7 @@ static PTHotKeyCenter *_sharedHotKeyCenter = nil;
 	return _sharedHotKeyCenter;
 }
 
-- (id)init
+- (instancetype)init
 {
 	self = [super init];
 
@@ -46,14 +49,9 @@ static PTHotKeyCenter *_sharedHotKeyCenter = nil;
 	return self;
 }
 
-- (void)dealloc
-{
-	mHotKeys = nil;
-}
-
 #pragma mark -
 
-- (BOOL)registerHotKey: (PTHotKey*)hotKey
+- (BOOL)registerHotKey:(PTHotKey*)hotKey
 {
     if ( mIsPaused == NO )
     {
@@ -78,14 +76,18 @@ static PTHotKeyCenter *_sharedHotKeyCenter = nil;
                                     &carbonHotKey );
 
         if( err )
+		{
             return NO;
-
+		}
+		
         [hotKey setCarbonHotKeyID:hotKeyID.id];
         [hotKey setCarbonEventHotKeyRef:carbonHotKey];
 
         if( hotKey )
+		{
             mHotKeys[@(hotKeyID.id)] = hotKey;
-
+		}
+		
         [self _updateEventHandler];
     }
     else
@@ -94,20 +96,25 @@ static PTHotKeyCenter *_sharedHotKeyCenter = nil;
         [hotKey setCarbonHotKeyID:hotKeyID.id];
 
         if( hotKey )
+		{
             mHotKeys[@(hotKeyID.id)] = hotKey;
+		}
     }
+	
     return YES;
 }
 
-- (void)unregisterHotKey: (PTHotKey*)hotKey
+- (void)unregisterHotKey:(PTHotKey*)hotKey
 {
     if ( mIsPaused == NO )
     {
         EventHotKeyRef carbonHotKey;
 
         if( [[self allHotKeys] containsObject: hotKey] == NO )
+		{
             return;
-
+		}
+		
         carbonHotKey = [hotKey carbonEventHotKeyRef];
 
         if( carbonHotKey )
@@ -139,18 +146,22 @@ static PTHotKeyCenter *_sharedHotKeyCenter = nil;
 	return [mHotKeys allValues];
 }
 
-- (PTHotKey*)hotKeyWithIdentifier: (id)ident
+- (PTHotKey*)hotKeyWithIdentifier:(id)ident
 {
 	NSEnumerator* hotKeysEnum = [[self allHotKeys] objectEnumerator];
 	PTHotKey* hotKey;
 
 	if( !ident )
+	{
 		return nil;
-
+	}
+	
 	while( (hotKey = [hotKeysEnum nextObject]) != nil )
 	{
 		if( [[hotKey identifier] isEqual: ident] )
+		{
 			return hotKey;
+		}
 	}
 
 	return nil;
@@ -166,7 +177,9 @@ static PTHotKeyCenter *_sharedHotKeyCenter = nil;
 	while( (hotkey = [e nextObject]) )
 	{
 		if( [hotkey carbonEventHotKeyRef] == carbonHotKeyRef )
+		{
 			return hotkey;
+		}
 	}
 
 	return nil;
@@ -181,7 +194,8 @@ static PTHotKeyCenter *_sharedHotKeyCenter = nil;
 {
 	if( [mHotKeys count] && mEventHandlerInstalled == NO )
 	{
-		EventTypeSpec eventSpec[2] = {
+		EventTypeSpec eventSpec[2] =
+		{
 			{ kEventClassKeyboard, kEventHotKeyPressed },
 			{ kEventClassKeyboard, kEventHotKeyReleased }
 		};
@@ -280,8 +294,10 @@ static PTHotKeyCenter *_sharedHotKeyCenter = nil;
 - (void)pause
 {
     if ( mIsPaused )
+	{
         return;
-
+	}
+	
     mIsPaused = YES;
     for (NSNumber *hotKeyID in mHotKeys)
     {
@@ -290,7 +306,8 @@ static PTHotKeyCenter *_sharedHotKeyCenter = nil;
         UnregisterEventHotKey( carbonHotKey );
         [hotKey setCarbonEventHotKeyRef:NULL];
     }
-    if (mEventHandler != NULL)
+	
+	if (mEventHandler != NULL)
     {
         RemoveEventHandler(mEventHandler);
         mEventHandler = NULL;
@@ -300,9 +317,11 @@ static PTHotKeyCenter *_sharedHotKeyCenter = nil;
 
 - (void)resume
 {
-    if ( mIsPaused == NO)
+    if ( !mIsPaused)
+	{
         return;
-
+	}
+	
     mIsPaused = NO;
     for (NSNumber *hotKeyIDNumber in mHotKeys)
     {
@@ -319,6 +338,7 @@ static PTHotKeyCenter *_sharedHotKeyCenter = nil;
                               &carbonHotKey );
         [hotKey setCarbonEventHotKeyRef:carbonHotKey];
     }
+	
     [self _updateEventHandler];
 }
 

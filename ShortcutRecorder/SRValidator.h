@@ -13,22 +13,32 @@
 
 #import <Cocoa/Cocoa.h>
 
+@protocol SRValidation;
+
 @interface SRValidator : NSObject {
-    id              delegate;
 }
 
-- (id) initWithDelegate:(id)theDelegate;
+- (instancetype) initWithDelegate:(id)theDelegate;
 
-- (BOOL) isKeyCode:(NSInteger)keyCode andFlagsTaken:(NSUInteger)flags error:(NSError **)error;
-- (BOOL) isKeyCode:(NSInteger)keyCode andFlags:(NSUInteger)flags takenInMenu:(NSMenu *)menu error:(NSError **)error;
+- (BOOL)isKeyCode:(NSInteger)keyCode
+	andFlagsTaken:(NSUInteger)flags
+			error:(NSError **)error;
+- (BOOL)isKeyCode:(NSInteger)keyCode
+		 andFlags:(NSUInteger)flags
+	  takenInMenu:(NSMenu *)menu
+			error:(NSError **)error;
 
-- (id) delegate;
-- (void) setDelegate: (id) theDelegate;
+@property (nonatomic, weak) id<SRValidation> delegate;
 
 @end
 
 #pragma mark -
 
-@interface NSObject( SRValidation )
-- (BOOL) shortcutValidator:(SRValidator *)validator isKeyCode:(NSInteger)keyCode andFlagsTaken:(NSUInteger)flags reason:(NSString **)aReason;
+@protocol SRValidation <NSObject>
+
+- (BOOL)shortcutValidator:(SRValidator *)validator
+				isKeyCode:(NSInteger)keyCode
+			andFlagsTaken:(NSUInteger)flags
+				   reason:(NSString **)aReason;
+
 @end
