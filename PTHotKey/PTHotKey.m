@@ -14,7 +14,6 @@
 @interface PTHotKey ()
 
 @property (nonatomic, strong, readwrite) id identifier;
-@property (nonatomic, strong, readwrite) PTKeyCombo *keyCombo;
 
 @end
 

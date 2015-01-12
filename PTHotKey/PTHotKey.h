@@ -21,7 +21,7 @@
 
 @property (nonatomic, strong, readonly) id identifier;
 
-@property (nonatomic, strong, readonly) PTKeyCombo *keyCombo;
+@property (nonatomic, strong) PTKeyCombo *keyCombo;
 @property (nonatomic, weak) id target;
 @property (nonatomic) SEL action;
 
