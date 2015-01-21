@@ -64,7 +64,7 @@
 	keyChars = nil;
 	
 	recordingGradient = nil;
-	autosaveName = nil;
+	_autosaveName = nil;
 	
 	cancelCharacterSet = nil;
 }
@@ -79,7 +79,7 @@
 	
 	if ([aDecoder allowsKeyedCoding])
 	{
-		autosaveName = [aDecoder decodeObjectForKey: @"autosaveName"];
+		_autosaveName = [aDecoder decodeObjectForKey: @"autosaveName"];
 		
 		keyCombo.code = [[aDecoder decodeObjectForKey: @"keyComboCode"] shortValue];
 		keyCombo.flags = [[aDecoder decodeObjectForKey: @"keyComboFlags"] unsignedIntegerValue];
@@ -101,8 +101,8 @@
 		style = [[aDecoder decodeObjectForKey:@"style"] shortValue];
 	}
 	else
- {
-		autosaveName = [aDecoder decodeObject];
+	{
+		_autosaveName = [aDecoder decodeObject];
 		
 		keyCombo.code = [[aDecoder decodeObject] shortValue];
 		keyCombo.flags = [[aDecoder decodeObject] unsignedIntegerValue];
@@ -161,7 +161,7 @@
 	cell = (SRRecorderCell *)[super copyWithZone: zone];
 	
 	cell->recordingGradient = recordingGradient;
-	cell->autosaveName = autosaveName;
+	cell.autosaveName = _autosaveName;
 	
 	cell->isRecording = isRecording;
 	cell->mouseInsideTrackingArea = mouseInsideTrackingArea;
@@ -1011,22 +1011,6 @@
 - (void)setCanCaptureGlobalHotKeys:(BOOL)inState
 {
 	globalHotKeys = inState;
-}
-
-#pragma mark *** Autosave Control ***
-
-- (NSString *)autosaveName
-{
-	return autosaveName;
-}
-
-- (void)setAutosaveName:(NSString *)aName
-{
-	if (aName != autosaveName)
-	{
-		autosaveName = nil;
-		autosaveName = [aName copy];
-	}
 }
 
 #pragma mark -

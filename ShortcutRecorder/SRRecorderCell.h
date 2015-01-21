@@ -41,7 +41,6 @@ typedef enum SRRecorderStyle SRRecorderStyle;
 @interface SRRecorderCell : NSActionCell <NSCoding>
 {	
 	NSGradient          *recordingGradient;
-	NSString            *autosaveName;
 	
 	BOOL                isRecording;
 	BOOL                mouseInsideTrackingArea;

@@ -18,8 +18,6 @@
 
 @interface SRRecorderControl (Private)
 
-@property (nonatomic, strong) NSDictionary *keyObjectValue;
-
 - (void)resetTrackingRects;
 
 @end
@@ -260,7 +258,7 @@
 
 #pragma mark *** Binding Methods ***
 
-- (NSDictionary *)keyObjectValue
+- (NSDictionary *)objectValue
 {
     KeyCombo keyCombo = [self keyCombo];
     if (keyCombo.code == ShortcutRecorderEmptyCode || keyCombo.flags == ShortcutRecorderEmptyFlags)
@@ -273,7 +271,7 @@
             @"modifierFlags": @(keyCombo.flags)};
 }
 
-- (void)setKeyObjectValue:(NSDictionary *)shortcut
+- (void)setObjectValue:(NSDictionary *)shortcut
 {
     KeyCombo keyCombo = SRMakeKeyCombo(ShortcutRecorderEmptyCode, ShortcutRecorderEmptyFlags);
     if (shortcut != nil && [shortcut isKindOfClass:[NSDictionary class]])
@@ -360,7 +358,7 @@
 	}
 	
 	// apply the value transformer, if one has been set
-    NSDictionary *value = [self keyObjectValue];
+    NSDictionary *value = [self objectValue];
 	NSDictionary *bindingOptions = bindingInfo[NSOptionsKey];
 	if (bindingOptions != nil)
 	{
