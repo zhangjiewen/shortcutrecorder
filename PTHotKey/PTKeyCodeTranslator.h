@@ -18,7 +18,7 @@
 
 + (id)currentTranslator;
 
-- (instancetype)initWithKeyboardLayout:(TISInputSourceRef)aLayout NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithKeyboardLayout:(TISInputSourceRef)aLayout;
 - (NSString *)translateKeyCode:(short)keyCode;
 
 @property (nonatomic, readonly) TISInputSourceRef keyboardLayout;

@@ -30,7 +30,8 @@
 
 - (instancetype)initWithKeyboardLayout:(TISInputSourceRef)aLayout
 {
-    if ((self = [super init]) != nil) {
+    if (self = [super init])
+	{
         keyboardLayout = aLayout;
 
 		CFRetain(keyboardLayout);
